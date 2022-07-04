@@ -69,7 +69,11 @@ pip install -r FaceLib\requirements.txt
 
 Во вкладке с каталогом найдите FaceLib, азйдите в нее и кликните на `examples.ipynb` 
 
+Запускайте ячеки по одной.
+
+TODO BSOD из-за драйвера камеры
+
 ## Работа с Colab
 
-
+BSOD Malevich XL
 
