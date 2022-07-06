@@ -28,7 +28,7 @@ https://conda.io/en/latest/miniconda.html
 $ conda install notebook nb_conda_kernels git
 ```
 
-![run console](img/anaconda-install-notebook.png)
+![run console](img/ai1-anaconda-install-notebook.png)
 
 
 ### Запуск Jupyter
