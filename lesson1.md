@@ -22,9 +22,14 @@ https://conda.io/en/latest/miniconda.html
 
 ### Запустить консоль и установить требуемые пакеты
 
+![run console](img/ai1-anaconda-run-shell.png)
+
 ```bash
 $ conda install notebook nb_conda_kernels git
 ```
+
+![run console](img/anaconda-install-notebook.png)
+
 
 ### Запуск Jupyter
 
@@ -40,7 +45,7 @@ $ conda install notebook nb_conda_kernels git
 
 Напишите одну или несколько строчек в ячейке и нажмите Ctrl-Enter или кнопку Run. Для новой ячейки нажмите кнопку +.
 
-![work with notebook](img/ai1-notebook-work.pnga)
+![work with notebook](img/ai1-notebook-work.png)
 
 Пример: 
 
@@ -92,7 +97,15 @@ TODO BSOD из-за драйвера камеры
 
 ## Работа с Colab
 
-TODO Malevich XL
+Откройте ссылку
+
+https://colab.research.google.com/drive/1wGE-046et27oHvNlBNPH07qrEQNE04PQ?usp=sharing
+
+Перед вами интерфейс облачной тетрадки.
+
+Для запуска надо авторизоваться в Google.
+
+В ячейке текст наберите что-то своё.
 
 ## Домашнее задание
 
