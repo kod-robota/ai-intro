@@ -36,11 +36,11 @@ $ conda install notebook nb_conda_kernels git
 
 В правом внрхнем углу найдите New и выберите Python 3.
 
-![img/ai1-notebook-launch.png]
+![launch notebook](img/ai1-notebook-launch.png)
 
 Напишите одну или несколько строчек в ячейке и нажмите Ctrl-Enter или кнопку Run. Для новой ячейки нажмите кнопку +.
 
-![img/ai1-notebook-work.png]
+![work with notebook](img/ai1-notebook-work.pnga)
 
 Пример: 
 
@@ -55,7 +55,7 @@ print(f"You are mixing {a[0]} and {a[1]} here!")
 
 Переименуйте ноутбук:
 
-![img/ai1-notebook-save.png]
+![save notebook](img/ai1-notebook-save.png)
 
 ### Запуск тетрадки с примерами FaceLib 
 
@@ -82,9 +82,9 @@ pip install -r FaceLib\requirements.txt
 
 Во вкладке с каталогом найдите FaceLib, азйдите в нее и кликните на `examples.ipynb` 
 
-Смените среду питона на faceenv.
+Смените среду питона на `faceenv`.
 
-![img/ai1-facelib-chenv.png]
+![facelib change env](img/ai1-facelib-chenv.png)
 
 Запускайте ячеки по одной.
 
