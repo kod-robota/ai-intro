@@ -36,7 +36,11 @@ $ conda install notebook nb_conda_kernels git
 
 В правом внрхнем углу найдите New и выберите Python 3.
 
-Напишите одну или несколько строчек в ячейке и нажмите Ctrl-Enter.
+![img/ai1-notebook-launch.png]
+
+Напишите одну или несколько строчек в ячейке и нажмите Ctrl-Enter или кнопку Run. Для новой ячейки нажмите кнопку +.
+
+![img/ai1-notebook-work.png]
 
 Пример: 
 
@@ -48,6 +52,10 @@ $ conda install notebook nb_conda_kernels git
 a = ["apples", "oranges"]
 print(f"You are mixing {a[0]} and {a[1]} here!")
 ```
+
+Переименуйте ноутбук:
+
+![img/ai1-notebook-save.png]
 
 ### Запуск тетрадки с примерами FaceLib 
 
@@ -74,6 +82,10 @@ pip install -r FaceLib\requirements.txt
 
 Во вкладке с каталогом найдите FaceLib, азйдите в нее и кликните на `examples.ipynb` 
 
+Смените среду питона на faceenv.
+
+![img/ai1-facelib-chenv.png]
+
 Запускайте ячеки по одной.
 
 TODO BSOD из-за драйвера камеры
@@ -86,4 +98,3 @@ TODO Malevich XL
 
 * Запустите модель Малевич на вашем лаптопе/ПК (в режиме ЦПУ). Для этого создайте новую среду питона, установите требуемые пакеты из файла requrements.txt, смените движок с `cuda` на `cpu`. Поделитесь картинками в группе.
 * Посмотрите [репозиторий Сбербанка](https://github.com/ai-forever), что еще вы хотите запустить? Может быть [сгенерировать эмотиконки](https://github.com/ai-forever/ru-dalle/blob/master/Emojich.md)?
-* Попробуйте беровскую модель для генерации текста GTP3.
