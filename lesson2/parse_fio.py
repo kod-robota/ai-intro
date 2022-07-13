@@ -62,7 +62,7 @@ def main(t, send, seen, clients_fn):
  #
  # Работа с файлом клиентов
  #
- with open(clients_fn, "r") as fio:
+ with open(clients_fn, "r", encoding="utf-8") as fio:
 
   for line in fio:
     if not "\t" in line:
