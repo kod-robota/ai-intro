@@ -31,7 +31,7 @@ kod:kod123
 
 Для USB-камеры,
 
-nvgstcapture-1.0 --camsrc=0 --cap-dev-node=0
+`nvgstcapture-1.0 --camsrc=0 --cap-dev-node=0`
 
 Последний 0 - это из /dev/video0 - проверьте.
 
@@ -70,6 +70,9 @@ sudo docker pull hello-world
 sudo docker run hello-world
 ```
 
+[Мини-тюториал](4_docker.md)
+
+
 ## Разпознавание
 
 ```bash
@@ -77,7 +80,16 @@ cd build/aarch64/bin
 ./imagenet images/jellyfish.jpg images/test/jellyfish.jpg
 ```
 
-Опции для распознавания
+Посмотрите в проводнике, в jetson-inference/data/images/test.
+
+
+## Опции для распознавания
+
+Запуск без аргументов включает стрим с камеры, в угу пишет все, что нашел.
+
+* --network=resnet-18 
+* --width, --height - размеры изображения с камеры
+* --headless - без вывода изображения на экран
 
 ## Детекция
 
@@ -89,13 +101,94 @@ cd build/aarch64/bin
 
 Опции для детекции.
 
+* --network SSD-Mobilenet-v2
+* --overlay=box,labels,conf  где box можно заменить на lines
+* --alpha 120 - некое значение насыщенности наложения прямоугольника
+* --threshold 0.5 - порог распознавания
+
+Можно распознавать сразу много фото:
+
+`./detectnet "images/peds_*.jpg" images/test/peds_output_%i.jpg`
+
+Можно так же распознавать на роликах:
+
+```bash
+wget https://nvidia.box.com/shared/static/veuuimq6pwvd62p9fresqhrrmfqz0e2f.mp4 -O pedestrians.mp4
+./detectnet pedestrians.mp4 images/test/pedestrians_ssd.mp4
+```
+
+### Сети
+
+| Model                   | CLI argument       | NetworkType enum   | Object classes       |
+| ------------------------|--------------------|--------------------|----------------------|
+| SSD-Mobilenet-v1        | `ssd-mobilenet-v1` | `SSD_MOBILENET_V1` | 91 COCO classes      |
+| SSD-Mobilenet-v2        | `ssd-mobilenet-v2` | `SSD_MOBILENET_V2` | 91 COCO classes      |
+| SSD-Inception-v2        | `ssd-inception-v2` | `SSD_INCEPTION_V2` | 91 COCO classes      |
+| DetectNet-COCO-Dog      | `coco-dog`         | `COCO_DOG`         | dogs                 |
+| DetectNet-COCO-Bottle   | `coco-bottle`      | `COCO_BOTTLE`      | bottles              |
+| DetectNet-COCO-Chair    | `coco-chair`       | `COCO_CHAIR`       | chairs               |
+| DetectNet-COCO-Airplane | `coco-airplane`    | `COCO_AIRPLANE`    | airplanes            |
+| ped-100                 | `pednet`           | `PEDNET`           | pedestrians          |
+| multiped-500            | `multiped`         | `PEDNET_MULTI`     | pedestrians, luggage |
+| facenet-120             | `facenet`          | `FACENET`          | faces                |
+
+* [COCO classes](https://github.com/dusty-nv/jetson-inference/blob/master/data/networks/ssd_coco_labels.txt)
+
+## Сегментация
+
+Это - классификация для каждого пиксела, так что получается заполненный контур вместо прямоугольника.
+
+```bash
+./segnet --network=fcn-resnet18-cityscapes images/city_0.jpg images/test/output.jpg
+```
+
+## Определение позы
+
+Для USB-камеры, а для CSI не надо аргумента
+
+```bash
+./posenet /dev/video0
+```
+
+| Model                   | CLI argument       | NetworkType enum   | Keypoints |
+| ------------------------|--------------------|--------------------|-----------|
+| Pose-ResNet18-Body      | `resnet18-body`    | `RESNET18_BODY`    | 18        |
+| Pose-ResNet18-Hand      | `resnet18-hand`    | `RESNET18_HAND`    | 21        |
+| Pose-DenseNet121-Body   | `densenet121-body` | `DENSENET121_BODY` | 18        |
+
+## Глубина сцены с однообъективной камеры
+
+```bash
+./depthnet "images/room_*.jpg" images/test/depth_room_%i.jpg
+```
+
+## Дообучение сети
+
+Выгодно учить сеть не с нуля, а доучивать на своих фото.
+Можно и на Jetson Nano, но очень долго.
+
+| Type | Dataset   | Size  |  Classes | Training Images | Time per Epoch* | Training Time** |
+|:-----------:|:-----------:|:-------:|:----------:|:-----------------:|:-----------------:|:-----------------:|
+| Classification | [`Cat/Dog`](pytorch-cat-dog.md)   | 800MB |    2    |      5,000      |  ~7-8 minutes   |    ~4 hours     |
+| Classification | [`PlantCLEF`](pytorch-plants.md) | 1.5GB |   20    |     10,475      | ~15 minutes     |    ~8 hours     |
+| Detection | [`Fruit`](pytorch-ssd.md) | 2GB |   8    |     6,375      | ~15 minutes     |    ~8 hours     |
+
+
+
+
+
 ## Запуск контейнера в пакетном режиме - неинтерактивном
 
 ```bash
-sudo docker/run.sh -r detectnet mages/peds_0.jpg images/test/peds_0.jpg
+sudo docker/run.sh -r build/aarch64/bin/detectnet build/aarch64/bin/images/peds_0.jpg build/aarch64/bin/images/test/peds_batch_0.jpg
 ```
 
 ## Сборка своего контейнера
 
 Например, свою программу.
+
+## Ссылки
+
+* Официальная документация https://github.com/dusty-nv/jetson-inference/blob/master/docs/aux-docker.md
+* Система распознавания лиц https://habr.com/ru/company/skillfactory/blog/544430/
 
